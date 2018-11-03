@@ -57,15 +57,5 @@
   "bugs": {
     "url": "https://github.com/esausilva/react-starter-boilerplate-hmr/issues"
   },
-  "keywords": [
-    "react",
-    "react 16",
-    "boilerplate",
-    "semantic ui",
-    "semantic ui react",
-    "webpack 4",
-    "webpack",
-    "hot module replacement",
-    "hmr"
-  ]
+  "keywords": []
 }
