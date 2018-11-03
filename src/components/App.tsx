@@ -1,5 +1,14 @@
 import * as React from 'react';
 
-const App = () => <div className="app">foo</div>;
+import Canvas from './Canvas';
+import ShaderLoader from './ShaderLoader';
+
+const App = () => (
+  <div id="app">
+    <Canvas>
+      <ShaderLoader />
+    </Canvas>
+  </div>
+);
 
 export default App;
