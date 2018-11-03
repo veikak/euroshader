@@ -1,9 +1,9 @@
 {
-  "name": "react-starter-boilerplate-hmr",
-  "version": "1.0.0",
-  "description": "React starter boilerplate with Hot Module Replacement, React 16 and Webpack 4",
-  "main": "index.js",
-  "author": "Esau Silva",
+  "name": "euroshader",
+  "version": "0.0.1",
+  "description": "",
+  "main": "src/index.tsx",
+  "author": "Veikka Kähkönen",
   "license": "MIT",
   "scripts": {
     "dev": "webpack-dev-server --env.env=dev",
