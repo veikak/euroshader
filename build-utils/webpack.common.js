@@ -9,7 +9,7 @@ const config = {
     publicPath: '/'
   },
   resolve: {
-    extensions: ['.ts', '.tsx', '.js']
+    extensions: ['.ts', '.tsx', '.js', '.glsl']
   },
   module: {
     rules: [
@@ -17,6 +17,11 @@ const config = {
         test: /\.(tsx|ts)$/,
         exclude: /node_modules/,
         use: ['babel-loader']
+      },
+      {
+        test: /\.glsl$/,
+        exclude: /node_modules/,
+        use: ['raw-loader']
       }
     ]
   },
