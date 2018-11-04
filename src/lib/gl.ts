@@ -1,4 +1,4 @@
-type RenderingContext = WebGLRenderingContext | WebGL2RenderingContext;
+export type RenderingContext = WebGLRenderingContext | WebGL2RenderingContext;
 
 export const init = (gl: RenderingContext) => {
   gl.clearColor(0, 0, 0, 1);
