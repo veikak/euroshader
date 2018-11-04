@@ -1,5 +1,7 @@
 precision mediump float;
 
+uniform vec2 u_resolution;
+
 void main() {
-  gl_FragColor = vec4(1, 0, 0.5, 1); // return redish-purple
+  gl_FragColor = vec4(gl_FragCoord.xy/u_resolution, 0., 1.);
 }

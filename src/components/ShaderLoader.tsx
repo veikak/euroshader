@@ -30,7 +30,7 @@ class ShaderLoader extends React.Component<ShaderLoaderProps, any> {
     let program = gl.createProgram();
     gl.attachShader(program, vertexShader);
     gl.attachShader(program, fragmentShader);
-    linkProgram(gl, program);
+    program = linkProgram(gl, program);
     setupShadedFullScreenTriangle(gl, program);
   }
 
