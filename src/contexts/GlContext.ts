@@ -1,9 +1,15 @@
 import * as React from 'react';
 
 export interface GlContextInterface {
-  (): WebGLRenderingContext | null,
+  getWebGlContext(): WebGLRenderingContext | null,
+  getWebGl2Context(): WebGL2RenderingContext | null,
 }
 
-const GlContext = React.createContext<GlContextInterface>(() => null);
+const defaultValue = {
+  getWebGlContext: () => null,
+  getWebGl2Context: () => null,
+};
+
+const GlContext = React.createContext<GlContextInterface>(defaultValue);
 
 export default GlContext;

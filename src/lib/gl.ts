@@ -1,5 +1,4 @@
 export const init = (gl: WebGLRenderingContext | null) => {
-  console.log('gl', gl);
   if (gl === null) {
     throw new Error('WebGL unavailable');
   }

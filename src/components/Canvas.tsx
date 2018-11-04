@@ -19,7 +19,7 @@ export default class Canvas extends React.Component<CanvasProps, CanvasState> {
     };
   }
 
-  getGlContext = () => {
+  getWebGlContext = (): WebGLRenderingContext | null => {
     const canvas = this.state.canvas.current;
 
     if (!canvas) {
@@ -29,16 +29,29 @@ export default class Canvas extends React.Component<CanvasProps, CanvasState> {
     return canvas.getContext('webgl');
   }
 
+  getWebGl2Context = (): WebGL2RenderingContext | null => {
+    const canvas = this.state.canvas.current;
+
+    if (!canvas) {
+      return null;
+    }
+
+    return canvas.getContext('webgl2');
+  }
+
   render() {
     const { children } = this.props;
     const { canvas } = this.state;
 
-    console.log('canvas', canvas)
+    const context = {
+      getWebGlContext: this.getWebGlContext,
+      getWebGl2Context: this.getWebGl2Context,
+    };
 
     return (
       <>
         <canvas ref={canvas} id="glCanvas" width="640" height="480" />
-        <GlContext.Provider value={this.getGlContext}>
+        <GlContext.Provider value={context}>
           {children}
         </GlContext.Provider>
       </>

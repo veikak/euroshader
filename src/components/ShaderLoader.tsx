@@ -10,11 +10,9 @@ export interface ShaderLoaderProps {
 
 class ShaderLoader extends React.Component<ShaderLoaderProps, any> {
   componentDidMount() {
-    const { gl } = this.props;
+    const { getWebGlContext } = this.props;
 
-    console.log('gl2', gl)
-
-    const glContext = gl();
+    const glContext = getWebGlContext();
 
     initGl(glContext);
   }
