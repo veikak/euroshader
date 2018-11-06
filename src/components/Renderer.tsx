@@ -1,24 +1,35 @@
 import * as React from 'react';
 
-import { RenderingContext } from '../lib/gl';
+import {
+  init as initGl,
+  createShader,
+  linkProgram,
+  setupShadedFullScreenTriangle,
+  RenderingContext,
+} from '../lib/gl';
 import { GlContextInterface } from '../contexts/GlContext';
 import withGlContext from './withGlContext';
 import commonVs from '../shaders/common.vs.glsl';
 import testFs from '../shaders/test.fs.glsl';
 
+export interface RendererProps extends GlContextInterface {
+};
+
 interface RendererState {
   gl: RenderingContext | null,
+  vertexShader: WebGLShader | null,
   loopId: number | null,
-  timeULoc: number | null,
+  timeULoc: WebGLUniformLocation | null,
   program: WebGLProgram | null,
 };
 
-class Renderer extends React.Component<any, RendererState> {
+class Renderer extends React.Component<RendererProps, RendererState> {
   constructor(props: any) {
     super(props);
 
     this.state = {
       gl: null,
+      vertexShader: null,
       loopId: null,
       timeULoc: null,
       program: null,
@@ -26,7 +37,23 @@ class Renderer extends React.Component<any, RendererState> {
   }
 
   componentDidMount() {
-    this.updateGlContext();
+    const { getWebGlContext } = this.props;
+
+    const gl = getWebGlContext();
+    if (gl === null) {
+      throw new Error('WebGL unavailable');
+    }
+    initGl(gl);
+
+    const vertexShader = createShader(gl, gl.VERTEX_SHADER, commonVs);
+    const fragmentShader = createShader(gl, gl.FRAGMENT_SHADER, testFs);
+    let program = gl.createProgram();
+    gl.attachShader(program, vertexShader);
+    gl.attachShader(program, fragmentShader);
+    program = linkProgram(gl, program);
+    setupShadedFullScreenTriangle(gl, program);
+
+    this.updateGlCache();
   }
 
   componentWillUnmount() {
@@ -37,7 +64,7 @@ class Renderer extends React.Component<any, RendererState> {
     }
   }
 
-  updateGlContext() {
+  updateGlCache() {
     const { getWebGlContext } = this.props;
 
     const gl = getWebGlContext();
