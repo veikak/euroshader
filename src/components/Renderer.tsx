@@ -6,7 +6,7 @@ import {
   linkProgram,
   setupShadedFullScreenTriangle,
   RenderingContext,
-} from '../lib/gl';
+} from '../lib/glUtils';
 import { GlContextInterface } from '../contexts/GlContext';
 import withGlContext from './withGlContext';
 import commonVs from '../shaders/common.vs.glsl';
