@@ -16,24 +16,18 @@ const config = {
   module: {
     rules: [
       {
-        test: /\.css$/,
+        test: /\.less$/,
         use: [
-          {
-            loader: 'style-loader'
-          },
-          {
-            loader: 'css-loader',
-            options: {
-              modules: true,
-              camelCase: true,
-              sourceMap: true
-            }
-          }
-        ]
-      }
+          'style-loader',
+          'css-loader',
+          'less-loader',
+        ],
+      },
     ]
   },
-  plugins: [new webpack.HotModuleReplacementPlugin()],
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+  ],
   devServer: {
     host: 'localhost',
     port: port,
