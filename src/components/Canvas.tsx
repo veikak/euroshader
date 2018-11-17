@@ -1,8 +1,10 @@
 import * as React from 'react';
 
+import './Canvas.less';
 import GlContext from '../contexts/GlContext';
 
 export interface CanvasProps {
+  aspectRatio: [number, number]
   onWebGlContextAvailable?(gl: WebGLRenderingContext | null): void,
   onWebGl2ContextAvailable?(gl: WebGL2RenderingContext | null): void,
   children?: React.ReactNode,
@@ -61,16 +63,16 @@ export default class Canvas extends React.Component<CanvasProps, CanvasState> {
   }
 
   render() {
-    const { children } = this.props;
+    const { children, aspectRatio: [aspectH, aspectV] } = this.props;
     const { canvas } = this.state;
 
     return (
-      <>
-        <canvas ref={canvas} id="glCanvas" width="640" height="480" />
+      <div className="canvas">
+        <canvas className="canvas__canvas" ref={canvas} width={aspectH} height={aspectV} />
         <GlContext.Provider value={this.getContextGetters()}>
           {children}
         </GlContext.Provider>
-      </>
+      </div>
     );
   }
 }

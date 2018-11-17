@@ -5,7 +5,7 @@ import Canvas from './Canvas';
 
 const App = () => (
   <div id="app">
-    <Canvas onWebGlContextAvailable={init} />
+    <Canvas onWebGlContextAvailable={init} aspectRatio={[16, 9]} />
   </div>
 );
 
