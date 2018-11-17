@@ -1,13 +1,11 @@
 import * as React from 'react';
+import init from '../stream/init';
 
 import Canvas from './Canvas';
-import Renderer from './Renderer';
 
 const App = () => (
   <div id="app">
-    <Canvas>
-      <Renderer />
-    </Canvas>
+    <Canvas onWebGlContextAvailable={init} />
   </div>
 );
 

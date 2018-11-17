@@ -13,7 +13,9 @@
     "build:bundleanalyzer": "yarn build -- --env.addons=bundleanalyzer"
   },
   "dependencies": {
+    "@types/kefir": "^3.7.0",
     "@types/webgl2": "0.0.4",
+    "kefir": "^3.8.5",
     "prop-types": "^15.6.2",
     "react": "^16.5.2",
     "react-delay-render": "^0.1.2",

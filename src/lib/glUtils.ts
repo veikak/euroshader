@@ -30,7 +30,7 @@ export const createShader = (
 
 export const linkProgram = (
   gl: RenderingContext,
-  program: WebGLProgram | null,
+  program: WebGLProgram,
 ) : WebGLProgram => {
   gl.linkProgram(program);
   const success = gl.getProgramParameter(program, gl.LINK_STATUS);
@@ -61,7 +61,7 @@ export const setupShadedFullScreenTriangle = (
       3, -1,
       -1, 3,
     ];
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(triangle), gl.STATIC_DRAW);
+    gl.bufferData(gl.ARRAY_BUFFER, Float32Array.from(triangle), gl.STATIC_DRAW);
 
     gl.useProgram(program);
     gl.enableVertexAttribArray(positionALoc);
@@ -69,6 +69,36 @@ export const setupShadedFullScreenTriangle = (
 
     const resolutionULoc = gl.getUniformLocation(program, "u_resolution");
     gl.uniform2f(resolutionULoc, gl.canvas.width, gl.canvas.height);
+}
 
-    gl.drawArrays(gl.TRIANGLES, 0, 3);
+export function createProgram(
+  gl: WebGLRenderingContext,
+  vertexSource: string,
+  fragmentSource: string
+): WebGLProgram {
+  const vertexShader = createShader(gl, gl.VERTEX_SHADER, vertexSource);
+  const fragmentShader = createShader(gl, gl.FRAGMENT_SHADER, fragmentSource);
+  const program = gl.createProgram();
+
+  if (!program) {
+    throw new Error('Could not create WebGL program');
+  }
+
+  gl.attachShader(program, vertexShader);
+  gl.attachShader(program, fragmentShader);
+  linkProgram(gl, program);
+  setupShadedFullScreenTriangle(gl, program);
+
+  return program;
+}
+
+export function getUniformLocations(
+  gl: WebGLRenderingContext,
+  program: WebGLProgram
+) {
+  const timeULoc = gl.getUniformLocation(program, 'u_time');
+
+  return {
+    u_time: timeULoc,
+  };
 }
