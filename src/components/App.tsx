@@ -1,6 +1,7 @@
 import * as React from 'react';
-import init from '../stream/init';
+import 'normalize.css';
 
+import init from '../stream/init';
 import Canvas from './Canvas';
 
 const App = () => (
