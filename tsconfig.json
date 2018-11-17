@@ -1,9 +1,10 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "module": "ES6",
+    "target": "es6",
+    "module": "commonjs",
     "strict": true,
     "jsx": "react",
+    "lib": ["dom", "es6"],
     "experimentalDecorators": true
   }
 }
