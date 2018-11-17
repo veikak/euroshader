@@ -1,12 +1,12 @@
 const commonPaths = require('./common-paths');
 
 const webpack = require('webpack');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const config = {
   mode: 'production',
   entry: {
-    app: [`${commonPaths.appEntry}/index.tsx`]
+    app: [`${commonPaths.appEntry}/index.tsx`],
   },
   output: {
     filename: 'static/[name].[hash].js'
@@ -15,33 +15,18 @@ const config = {
   module: {
     rules: [
       {
-        test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [
-            {
-              loader: 'css-loader',
-              options: {
-                modules: true,
-                importLoaders: 1,
-                camelCase: true,
-                sourceMap: true
-              }
-            },
-            {
-              loader: 'postcss-loader'
-            }
-          ]
-        })
-      }
+        test: /\.less$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          'less-loader',
+        ],
+      },
     ]
   },
   plugins: [
-    new ExtractTextPlugin({
-      filename: 'styles/styles.[hash].css',
-      allChunks: true
-    })
-  ]
+    new MiniCssExtractPlugin(),
+  ],
 };
 
 module.exports = config;
