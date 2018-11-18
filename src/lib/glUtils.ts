@@ -1,15 +1,15 @@
 export type RenderingContext = WebGLRenderingContext | WebGL2RenderingContext;
 
-export const init = (gl: RenderingContext) => {
+export function init(gl: RenderingContext) {
   gl.clearColor(0, 0, 0, 1);
   gl.clear(gl.COLOR_BUFFER_BIT);
 }
 
-export const createShader = (
+export function createShader(
   gl: RenderingContext,
   shaderType: number,
   source: string,
-) : WebGLShader => {
+) : WebGLShader {
   const shader = gl.createShader(shaderType);
   gl.shaderSource(shader, source);
   gl.compileShader(shader);
@@ -28,10 +28,10 @@ export const createShader = (
   }
 }
 
-export const linkProgram = (
+export function linkProgram(
   gl: RenderingContext,
   program: WebGLProgram,
-) : WebGLProgram => {
+) : WebGLProgram {
   gl.linkProgram(program);
   const success = gl.getProgramParameter(program, gl.LINK_STATUS);
   if (success && program) {
@@ -47,10 +47,10 @@ export const linkProgram = (
   }
 }
 
-export const setupShadedFullScreenTriangle = (
+export function setupShadedFullScreenTriangle(
   gl: RenderingContext,
   program: WebGLProgram,
-) : void => {
+) : void {
     gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
 
     const positionALoc = gl.getAttribLocation(program, "a_position");
