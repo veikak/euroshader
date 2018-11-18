@@ -11,6 +11,10 @@ export function createShader(
   source: string,
 ) : WebGLShader {
   const shader = gl.createShader(shaderType);
+  if (!shader) {
+    throw new Error('Could not create shader');
+  }
+
   gl.shaderSource(shader, source);
   gl.compileShader(shader);
 
@@ -51,30 +55,30 @@ export function setupShadedFullScreenTriangle(
   gl: RenderingContext,
   program: WebGLProgram,
 ) : void {
-    gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
+  gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
 
-    const positionALoc = gl.getAttribLocation(program, "a_position");
-    const positionBuffer = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
-    const triangle = [
-      -1, -1,
-      3, -1,
-      -1, 3,
-    ];
-    gl.bufferData(gl.ARRAY_BUFFER, Float32Array.from(triangle), gl.STATIC_DRAW);
+  const positionALoc = gl.getAttribLocation(program, 'a_position');
+  const positionBuffer = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+  const triangle = [
+    -1, -1,
+    3, -1,
+    -1, 3,
+  ];
+  gl.bufferData(gl.ARRAY_BUFFER, Float32Array.from(triangle), gl.STATIC_DRAW);
 
-    gl.useProgram(program);
-    gl.enableVertexAttribArray(positionALoc);
-    gl.vertexAttribPointer(positionALoc, 2, gl.FLOAT, false, 0, 0);
+  gl.useProgram(program);
+  gl.enableVertexAttribArray(positionALoc);
+  gl.vertexAttribPointer(positionALoc, 2, gl.FLOAT, false, 0, 0);
 
-    const resolutionULoc = gl.getUniformLocation(program, "u_resolution");
-    gl.uniform2f(resolutionULoc, gl.canvas.width, gl.canvas.height);
+  const resolutionULoc = gl.getUniformLocation(program, 'u_resolution');
+  gl.uniform2f(resolutionULoc, gl.canvas.width, gl.canvas.height);
 }
 
 export function createProgram(
   gl: WebGLRenderingContext,
   vertexSource: string,
-  fragmentSource: string
+  fragmentSource: string,
 ): WebGLProgram {
   const vertexShader = createShader(gl, gl.VERTEX_SHADER, vertexSource);
   const fragmentShader = createShader(gl, gl.FRAGMENT_SHADER, fragmentSource);
@@ -94,7 +98,7 @@ export function createProgram(
 
 export function getUniformLocations(
   gl: WebGLRenderingContext,
-  program: WebGLProgram
+  program: WebGLProgram,
 ) {
   const timeULoc = gl.getUniformLocation(program, 'u_time');
 
